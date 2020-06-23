@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ConsoleApp;
 using ServiceLayer;
-using ServiceLayer.DataBox;
-using ServiceLayer.GetDataSizeService;
-using ServiceLayer.SendReportService;
 
 namespace ConsoleApp1
 {

@@ -1,14 +1,12 @@
 ﻿using ServiceLayer.DataBox;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
 using Google.Apis.Auth.OAuth2;
 using System.Threading;
 using Google.Apis.Util.Store;
-using System.Runtime.CompilerServices;
 using System.Linq;
 
 namespace ServiceLayer.SendReportService
