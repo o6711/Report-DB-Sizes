@@ -11,6 +11,9 @@ using System.Linq;
 
 namespace ServiceLayer.SendReportService
 {
+    /// <summary>
+    /// Use to interact with Google Sheets
+    /// </summary>
     public class ToGoogleSheets : ISendReport
     {
         // -> https://console.developers.google.com/apis/credentials - Идентификаторы клиентов OAuth 2.0
@@ -63,7 +66,7 @@ namespace ServiceLayer.SendReportService
                 //it should be created spreadsheet "DB size checker"
 
             }
-            
+
             foreach (var groupedReport in groupedReports)
             {
                 var dataForSheet = GetDataForSheet(groupedReport);
@@ -107,7 +110,7 @@ namespace ServiceLayer.SendReportService
             double occupiedSize = 0;
             foreach (var report in groupedReports)
             {
-                resultsList.Add( new List<Object>()
+                resultsList.Add(new List<Object>()
                                     {
                                         report.Data.Allocation,
                                         report.Data.SourceFileName,
@@ -117,20 +120,23 @@ namespace ServiceLayer.SendReportService
 
                 occupiedSize += Convert.ToDouble(report.Data.Size);
             }
-            resultsList.Add(new List<Object>(){"","","",""});
-            resultsList.Add(new List<Object>()
+            resultsList.Add(new List<Object>() { "", "", "", "" });
+            if (DisksSpacesToServers != null)
+            {
+                resultsList.Add(new List<Object>()
                                     {
                                         $"{groupedReports.Key}",
                                         "Свободно",
                                         (DisksSpacesToServers[groupedReports.Key] - occupiedSize).ToString(),
                                         DateTime.Now.ToString()
                                     });
+            }
             return resultsList;
         }
 
         private static void UpdateSheet(ref SheetsService service, string sheetName, ref IList<IList<Object>> values)
         {
-            SpreadsheetsResource.ValuesResource.ClearRequest clearRequest = 
+            SpreadsheetsResource.ValuesResource.ClearRequest clearRequest =
                 new SpreadsheetsResource.ValuesResource.ClearRequest(service, new ClearValuesRequest(), _googleSheets_Spreadsheet.SpreadsheetId, range: $"{sheetName}!A:D");
             //preliminary cleanse the sheet
             clearRequest.Execute();
@@ -139,7 +145,7 @@ namespace ServiceLayer.SendReportService
                service.Spreadsheets.Values.Append(new ValueRange() { Values = values }, _googleSheets_Spreadsheet.SpreadsheetId, range: $"{sheetName}!A:A");
             updateRequest.InsertDataOption = SpreadsheetsResource.ValuesResource.AppendRequest.InsertDataOptionEnum.OVERWRITE;
             updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.RAW;
-            
+
             updateRequest.Execute();
         }
 

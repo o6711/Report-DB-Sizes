@@ -8,6 +8,9 @@ using System.Text;
 
 namespace ServiceLayer.GetDataSizeService
 {
+    /// <summary>
+    /// Use to read data from Data Base
+    /// </summary>
     public class ByDb : IGetData
     {
         private const string _SQLQuery = "SELECT pg_database_size(current_database()) as size;";
@@ -76,7 +79,7 @@ namespace ServiceLayer.GetDataSizeService
                         dbName.Append(item[1]);
                         break;
                     default:
-                        throw new Exception("ParseConnectionString > connection string is wrong");
+                        throw new Exception("Error ParseConnectionString: connection string is wrong");
                 }
             }
         }

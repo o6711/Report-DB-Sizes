@@ -16,7 +16,11 @@ namespace ConsoleApp
         #endregion
 
         #region Other declaration
+        /// <summary>
+        /// The delay represents time after which the app re-read data and re-send report
+        /// </summary>
         public const int delay_ms = 60000;
+
         public const bool electricityIsFine = true;
         private const string _configurationFileSource = "config.json";
         #endregion
@@ -56,6 +60,8 @@ namespace ConsoleApp
 
         private static Dictionary<string, double> Parse_DisksSpacesToServers(List<string> pureData)
         {
+            if (pureData == null) return null;
+
             Dictionary<string, double> parsedData = new Dictionary<string, double>();
             foreach (var item in pureData)
             {
