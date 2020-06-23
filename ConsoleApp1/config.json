@@ -1,0 +1,11 @@
+{
+  "DBConnectionStrings": [
+    "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=321;"
+  ],
+  "GoogleSheetsClientId": "put your ClientId from https://console.developers.google.com/apis/credentials - OAuth 2.0 section",
+  "GoogleSheetsClientSecret": "put your ClientSecret from the same page",
+  "DisksSpacesToServers_PureData": [
+    "localhost=50"
+  ]
+
+}
